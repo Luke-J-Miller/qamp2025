@@ -19,7 +19,7 @@ This should install without dependency warnings on Colab and similar environment
 If you need a different Torch build (e.g., CUDA-specific), install without dependencies and bring your own Torch:
 
 # Install package only (no dependencies)
-pip install --no-deps "git+https://github.com/Luke-J-Miller/qamp2025.git@pin_environments"
+pip install --no-deps "git+https://github.com/Luke-J-Miller/qamp2025.git"
 
 # Then install your preferred Torch stack (examples)
 
