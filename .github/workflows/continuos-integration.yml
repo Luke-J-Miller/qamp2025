@@ -30,4 +30,4 @@ jobs:
         run: mypy qamp
 
       - name: Import package
-        run: python -c "import qamp; print('ok')"
+        run: python -c "import qamp; print(getattr(__import__('qamp'), '__version__', 'ok'))"
