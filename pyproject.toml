@@ -6,7 +6,6 @@ readme = "README.md"
 requires-python = ">=3.11"
 authors = [{ name = "Your Name" }]
 
-# Runtime dependencies (installed by GitHub Actions using uv)
 dependencies = [
   "qiskit",
   "qiskit-aer",
@@ -17,19 +16,12 @@ dependencies = [
   "pyyaml",
   "jsonschema",
   "tqdm",
-  # CPU-only torch wheel is fine; Actions will install it. (You can switch to CUDA later.)
+  # CPU-only PyTorch wheel for Week 1 (safe on Actions). Switch to CUDA later if needed.
   "torch @ https://download.pytorch.org/whl/cpu/torch-2.4.0%2Bcpu-cp311-cp311-linux_x86_64.whl",
 ]
 
 [project.optional-dependencies]
-dev = [
-  "ruff",
-  "black",
-  "mypy",
-  "pytest",
-  "types-PyYAML",
-  "maturin",
-]
+dev = ["ruff", "black", "mypy", "pytest", "types-PyYAML", "maturin"]
 
 [tool.mypy]
 python_version = "3.11"
