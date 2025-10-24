@@ -1,0 +1,43 @@
+[project]
+name = "qamp-graph-matching"
+version = "0.1.0"
+description = "Scaffold for a resource-aware quantum graph matching benchmark."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Your Name" }]
+
+# Runtime dependencies (installed by GitHub Actions using uv)
+dependencies = [
+  "qiskit",
+  "qiskit-aer",
+  "numpy",
+  "scipy",
+  "networkx",
+  "pandas",
+  "pyyaml",
+  "jsonschema",
+  "tqdm",
+  # CPU-only torch wheel is fine; Actions will install it. (You can switch to CUDA later.)
+  "torch @ https://download.pytorch.org/whl/cpu/torch-2.4.0%2Bcpu-cp311-cp311-linux_x86_64.whl",
+]
+
+[project.optional-dependencies]
+dev = [
+  "ruff",
+  "black",
+  "mypy",
+  "pytest",
+  "types-PyYAML",
+  "maturin",
+]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100
