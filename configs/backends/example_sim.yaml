@@ -1,0 +1,4 @@
+type: sim
+name: aer_simulator
+transpile_opt_level: 1
+shots: 256
