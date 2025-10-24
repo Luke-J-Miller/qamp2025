@@ -11,7 +11,7 @@ stable structure, dependencies declared, contracts written, and logging fields f
 ### Colab / default installation
 The default dependencies are pinned to match Google Colab’s stack (Torch 2.8.0 trio + jedi), so you can install with a single command:
 
-pip install "git+https://github.com/Luke-J-Miller/qamp2025.git@pin_environments"
+pip install "git+https://github.com/Luke-J-Miller/qamp2025.git"
 
 This should install without dependency warnings on Colab and similar environments.
 
