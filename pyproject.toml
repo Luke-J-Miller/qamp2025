@@ -1,8 +1,13 @@
 [project]
 name = "qamp-graph-matching"
 version = "0.1.0"
+description = "Scaffold for a resource-aware quantum graph matching benchmark."
+readme = "README.md"
 requires-python = ">=3.11"
-# Keep dependencies minimal here; you can manage torch separately in notebooks.
+authors = [{ name = "Your Name" }]
+
+# Default deps tailored for Google Colab.
+# Pins match Colab's preinstalled stack to avoid conflicts.
 dependencies = [
   "qiskit",
   "qiskit-aer",
@@ -13,13 +18,43 @@ dependencies = [
   "pyyaml",
   "jsonschema",
   "tqdm",
+
+  # Colab-friendly pins (CPU): keep these as your *default* now
+  "torch==2.8.0",
+  "torchvision==0.23.0",
+  "torchaudio==2.8.0",
+
+  # Satisfy IPython 7.x on Colab
+  "jedi>=0.16",
+]
+
+[project.optional-dependencies]
+# Developer tools (local + CI), unchanged
+dev = [
+  "ruff",
+  "black",
+  "mypy",
+  "pytest",
+  "types-PyYAML",
+  "maturin",
 ]
 
 [build-system]
 requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
-# ⬇️ This is the important part: tell setuptools to package *only* qamp/*
+# Ensure we package only qamp/ (not results/, configs/, notebooks/)
 [tool.setuptools.packages.find]
 include = ["qamp", "qamp.*"]
 exclude = ["results*", "configs*", "notebooks*"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100
