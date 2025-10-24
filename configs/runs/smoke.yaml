@@ -1,0 +1,7 @@
+# Placeholder only; inert in Week 1.
+dataset_ref: synth_tiny
+method: ullmann
+method_params: {}
+backend_ref: example_sim
+seed: 42
+output_dir: results/
