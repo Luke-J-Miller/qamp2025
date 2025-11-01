@@ -1,0 +1,10 @@
+---
+	name: congress-Twitter
+	domain: social
+	paths: ../data/social
+	directed: Yes
+	weighted: Yes
+	attributes: {nodes,edges}, 
+	split_policy: splits.yaml
+	seed: 
+	sizes: 

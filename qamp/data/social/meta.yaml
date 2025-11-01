@@ -1,0 +1,9 @@
+---
+	name: congress-Twitter
+	domain: social
+	directed: Yes
+	weighted: Yes
+	attributes: {nodes,edges}, 
+	seed: 
+	source: https://snap.stanford.edu/data/congress-twitter.html
+	license: BSD
