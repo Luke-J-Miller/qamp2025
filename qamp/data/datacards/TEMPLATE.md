@@ -1,5 +1,5 @@
 # Dataset Card — {NAME}
-
+```
 Domain: {synthetic|molecular|social|power-grid|...}  
 Tasks: subgraph detection | localization | similarity  
 Source/License: {link} | {license}
@@ -12,3 +12,4 @@ Splits: {policy and seed}
 Preprocessing: {steps}  
 Known Issues: {imbalance, sparsity, artifacts}  
 Repro Notes: {seeds, hashing policy, checksums}
+```
