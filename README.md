@@ -42,7 +42,7 @@ Note: heavy imports (e.g., Qiskit, Torch) are not executed at package import tim
 ---
 
 ## Repo structure (high-level)
-
+```
 qamp/
   data/                 # loaders, (Week 2) generators, dataset cards
   classical/            # Ullmann, VF2, WL, GNN baselines (Week 3)
@@ -53,6 +53,7 @@ qamp/
 configs/                # dataset/backend/run configs (placeholders now)
 docs/                   # ROADMAP and project docs
 .github/workflows/      # Continuous Integration (checks only)
+```
 
 Key files:
 - qamp/eval/logging_schema.json — JSONL record fields (frozen in Week 1)
