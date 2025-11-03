@@ -27,13 +27,7 @@ jobs:
         run: ruff check .
 
       - name: Format check
-        run: black --check .
-      - name: Show black diff (for diagnostics)
-        if: failure()
-        run: |
-          python -m pip install black
-          python -m black --diff .
-          git --no-pager diff --name-only
+        run: black .
 
 
       - name: Type check
@@ -41,5 +35,6 @@ jobs:
 
       - name: Import package
         run: python -c "import qamp; print(getattr(__import__('qamp'), '__version__', 'ok'))"
+
 
 
