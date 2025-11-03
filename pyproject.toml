@@ -18,7 +18,6 @@ dependencies = [
   "pyyaml",
   "jsonschema",
   "tqdm",
-  "ruff",
 
   # Colab-friendly pins (CPU): keep these as your *default* now
   "torch==2.8.0",
@@ -32,6 +31,7 @@ dependencies = [
 [project.optional-dependencies]
 # Developer tools (local + CI), unchanged
 dev = [
+  "ruff",
   "black",
   "mypy",
   "pytest",
