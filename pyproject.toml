@@ -39,6 +39,8 @@ dev = [
   "types-PyYAML",
   "types-networkx", 
   "types-tqdm",
+  "types-numpy",
+  "datasets",
   "maturin",
 ]
 
@@ -61,5 +63,6 @@ line-length = 100
 
 [tool.ruff]
 line-length = 100
+
 
 
