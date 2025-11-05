@@ -8,12 +8,16 @@ Original file is located at
 """
 
 from datasets import load_dataset
-
-ds = load_dataset("graphs-datasets/MUTAG")
-
 import random
 import numpy as np
 import networkx as nx
+import pickle
+from tqdm import tqdm
+
+
+ds = load_dataset("graphs-datasets/MUTAG")
+
+
 
 SEED = 42
 random.seed(SEED)
@@ -100,7 +104,6 @@ def sample_pos_neg_from_graph(adj_mat,
     for k in range(num_neg_samples):
         pos_idx = k % len(pos_adj_mats)
         sub_adj = pos_adj_mats[pos_idx]
-        nodes_in_sub = pos_nodes[pos_idx]
         m = sub_adj.shape[0]
 
         # list all absent undirected pairs in the upper triangle (i < j) where there is no edge
@@ -290,7 +293,6 @@ for i in tqdm(range(NUM)):
         "negative_subgraph_adj_mats": neg_adj_mats
     }
 
-import pickle, gzip
 with gzip.open("/mutag_benchmark.pkl", "wb") as f:
     pickle.dump(mutag_dataset_dict, f)
 with gzip.open("/snap_benchmark.pkl", "wb") as f:
