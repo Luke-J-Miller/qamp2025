@@ -28,7 +28,9 @@ def load_benchmark(pkl_path: str | Path) -> dict[int, dict[str, Any]]:
 
     opener = gzip.open if pkl_path.suffix == ".gz" else open
     with opener(pkl_path, "rb") as f:
-        return pickle.load(f)
+        data: dict[int, dict[str, Any]] = pickle.load(f)   # <-- explicit annotation
+    return data
+
 
 
 def iter_instances(
@@ -51,8 +53,8 @@ def iter_instances(
 
 
 
-    # with explicit default
-    global_meta = data.get("__metadata__", {}) or {}
+    
+    global_meta: dict[str, Any] = data.get("__metadata__", {})
 
     for graph_id, entry in data.items():
         if graph_id == "__metadata__":
@@ -100,5 +102,6 @@ def iter_instances(
 
     rng.shuffle(instances)
     return instances
+
 
 
