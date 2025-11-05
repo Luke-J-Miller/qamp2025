@@ -18,6 +18,7 @@ dependencies = [
   "pyyaml",
   "jsonschema",
   "tqdm",
+  "datasets",
 
   # Colab-friendly pins (CPU): keep these as your *default* now
   "torch==2.8.0",
@@ -60,4 +61,5 @@ line-length = 100
 
 [tool.ruff]
 line-length = 100
+
 
