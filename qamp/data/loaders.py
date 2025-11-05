@@ -4,8 +4,8 @@ import gzip
 from pathlib import Path
 from typing import Any, List, Dict
 
-
-def load_benchmark(pkl_path: str | Path) -> Dict[int, Dict[str, Any]]:
+def load_benchmark(pkl_path: str | Path) -> dict[int, dict[str, Any]]:
+# def load_benchmark(pkl_path: str | Path) -> Dict[int, Dict[str, Any]]:
     """
     Load a benchmark file created by your generation script.
 
@@ -97,3 +97,4 @@ def iter_instances(
 
     rng.shuffle(instances)
     return instances
+
