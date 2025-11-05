@@ -31,17 +31,22 @@ dependencies = [
 
 [project.optional-dependencies]
 # Developer tools (local + CI), unchanged
+# dev = [
+#   "ruff",
+#   "black",
+#   "mypy",
+#   "pytest",
+#   "types-PyYAML",
+#   "types-networkx", 
+#   "types-tqdm",
+#   "numpy",
+#   "datasets",
+#   "maturin",
+# ]
 dev = [
-  "ruff",
-  "black",
-  "mypy",
-  "pytest",
-  "types-PyYAML",
-  "types-networkx", 
-  "types-tqdm",
-  "numpy",
-  "datasets",
-  "maturin",
+  "ruff", "black", "mypy", "pytest",
+  "types-PyYAML", "types-networkx", "types-tqdm",
+  "datasets", "maturin"
 ]
 
 [build-system]
@@ -63,6 +68,7 @@ line-length = 100
 
 [tool.ruff]
 line-length = 100
+
 
 
 
