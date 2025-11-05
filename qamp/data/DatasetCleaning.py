@@ -14,6 +14,7 @@ import networkx as nx
 import pickle
 from tqdm import tqdm
 import gzip
+from typing import Any
 
 
 ds = load_dataset("graphs-datasets/MUTAG")
