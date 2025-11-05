@@ -36,6 +36,8 @@ dev = [
   "mypy",
   "pytest",
   "types-PyYAML",
+  "types-networkx", 
+  "types-tqdm",
   "maturin",
 ]
 
@@ -58,3 +60,4 @@ line-length = 100
 
 [tool.ruff]
 line-length = 100
+
