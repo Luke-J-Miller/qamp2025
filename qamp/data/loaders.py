@@ -49,7 +49,10 @@ def iter_instances(
     rng = random.Random(seed)
     instances = []
 
-    global_meta = data.get("__metadata__", {})
+
+
+    # with explicit default
+    global_meta = data.get("__metadata__", {}) or {}
 
     for graph_id, entry in data.items():
         if graph_id == "__metadata__":
@@ -97,4 +100,5 @@ def iter_instances(
 
     rng.shuffle(instances)
     return instances
+
 
