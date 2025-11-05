@@ -13,6 +13,7 @@ import numpy as np
 import networkx as nx
 import pickle
 from tqdm import tqdm
+import gzip
 
 
 ds = load_dataset("graphs-datasets/MUTAG")
