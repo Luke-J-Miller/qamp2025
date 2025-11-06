@@ -167,7 +167,7 @@ num_pos_samples = 3
 num_neg_samples = 3
 k_hop = 3
 
-mutag_dataset_dict: dict[int, dict[str, Any]] = {}
+mutag_dataset_dict: dict[int | str, dict[str, Any]] = {}
 for i, graph in tqdm(enumerate(ds['train'])):
     n = graph['num_nodes']
     mutag_dataset_dict[i] = {}
@@ -200,7 +200,7 @@ shapelist.min(), shapelist.max(), shapelist.mean()
 
 with open('/congress.edgelist', 'r') as file:
     snap_ds = file.readlines()
-raw_snap_dict: dict[str, list[Any]] = {"source": [], "dest": [], "weight": []}
+raw_snap_dict: dict[str, list[float | int]] = {"source": [], "dest": [], "weight": []}
 for i, line in enumerate(snap_ds):
   element_list = line.split()
   raw_snap_dict['source'].append(int(element_list[0]))
@@ -222,7 +222,7 @@ sampled_graph_adj_mats, _, _, _ = sample_pos_neg_from_graph(
       max_subgraph_size = 30
   )
 
-snap_dataset_dict: dict[int, dict[str, Any]] = {}
+snap_dataset_dict: dict[int | str, dict[str, Any]] = {}
 for i, graph in tqdm(enumerate(sampled_graph_adj_mats)):
     snap_dataset_dict[i] = {}
     n = graph.shape[0]
