@@ -206,8 +206,10 @@ n = len(set(raw_snap_dict['source']).union(set(raw_snap_dict['dest'])))
 adj_mat = np.zeros((n, n), dtype=np.uint8)
 
 for u, v in zip(raw_snap_dict['source'], raw_snap_dict['dest']):
-    adj_mat[u, v] = 1
-    adj_mat[v, u] = 1
+    iu = int(u)
+    iv = int(v)
+    adj_mat[iu, iv] = 1
+    adj_mat[iv, iu] = 1
 sampled_graph_adj_mats, _, _, _ = sample_pos_neg_from_graph(
       adj_mat,
       num_pos_samples=50,
