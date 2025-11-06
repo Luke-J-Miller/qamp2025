@@ -39,7 +39,8 @@ dev = [
   "types-PyYAML",
   "types-networkx",
   "types-tqdm",
-  "datasets",  # includes its own stubs
+  "datasets",       
+  "numpy",           
   "maturin"
 ]
 
@@ -62,6 +63,7 @@ line-length = 100
 
 [tool.ruff]
 line-length = 100
+
 
 
 
