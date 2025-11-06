@@ -2,7 +2,7 @@
 import pickle
 import gzip
 from pathlib import Path
-from typing import Any, List, Dict
+from typing import Any#, List, Dict
 
 def load_benchmark(pkl_path: str | Path) -> dict[int | str, dict[str, Any]]:
     pkl_path = Path(pkl_path)
@@ -72,6 +72,7 @@ def iter_instances(
 
     rng.shuffle(instances)
     return instances
+
 
 
 
