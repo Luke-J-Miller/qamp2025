@@ -16,7 +16,7 @@ import gzip
 from typing import Any
 
 
-ds = load_dataset("graphs-datasets/MUTAG")
+ds = datasets.load_dataset("graphs-datasets/MUTAG")
 
 
 
