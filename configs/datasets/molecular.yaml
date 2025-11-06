@@ -1,0 +1,10 @@
+name: mutag_subset
+domain: molecular
+path: data/molecular/mutag_subset
+directed: false
+weighted: false
+attributes:
+  node: [atom, charge, graph_id]
+  edge: [bond_type, graph_id]
+split_policy: graph_scaffold_or_random
+seed: 42

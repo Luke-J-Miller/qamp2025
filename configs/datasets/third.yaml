@@ -1,0 +1,10 @@
+name: snap_small
+domain: social
+path: data/third/snap_small
+directed: false
+weighted: false
+attributes:
+  node: [node_id]
+  edge: []
+split_policy: node_random
+seed: 42

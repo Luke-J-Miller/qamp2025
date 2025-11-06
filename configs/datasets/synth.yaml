@@ -1,0 +1,13 @@
+name: er_planted_small
+domain: synth
+path: data/synth/er_planted_small
+directed: false
+weighted: false
+attributes:
+  node: [node_id]
+  edge: []
+split_policy: node_random
+seed: 42
+sizes:
+  tiny: {n_target: 60, n_pattern: 6}
+  small: {n_target: 200, n_pattern: 8}
