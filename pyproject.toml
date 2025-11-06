@@ -37,10 +37,10 @@ dev = [
   "mypy",
   "pytest",
   "types-PyYAML",
-  "types-networkx",
-  "types-tqdm",
-  "datasets",       
-  "numpy",           
+  "types-networkx",   # networkx
+  "types-tqdm",       # tqdm
+  "datasets",         # includes its own stubs
+  "numpy",            # needed for numpy stubs
   "maturin"
 ]
 
@@ -63,6 +63,7 @@ line-length = 100
 
 [tool.ruff]
 line-length = 100
+
 
 
 
