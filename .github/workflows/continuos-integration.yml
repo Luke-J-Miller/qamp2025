@@ -18,12 +18,13 @@ jobs:
           uv sync
       - name: Install dev CLI tools
         run: |
-          uv pip install ruff black mypy types-PyYAML
+          uv pip install ruff mypy types-PyYAML
       - name: Type check
         run: uv run mypy qamp
       - name: Lint
         run: uv run ruff check .
-      - name: Format check
-        run: uv run black --check .
+      - name: Format with ruff (check)
+        run: uv run ruff format --check --diff .
       - name: Import package
         run: python -c "import qamp; print(getattr(__import__('qamp'), '__version__', 'ok'))"
+
