@@ -52,6 +52,7 @@ build-backend = "setuptools.build_meta"
 [tool.ruff]
 select = ["E", "W", "F", "I", "UP", "B", "C4", "TCH", "ARG", "ERA"]
 ignore = []
+line-length = 100
 
 [tool.ruff.format]
 preview = true
@@ -66,11 +67,7 @@ python_version = "3.11"
 warn_return_any = true
 warn_unused_configs = true
 
-[tool.black]
-line-length = 100
 
-[tool.ruff]
-line-length = 100
 
 
 
