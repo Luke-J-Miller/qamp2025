@@ -32,7 +32,7 @@ dependencies = [
 # Developer tools (local + CI), unchanged
 [project.optional-dependencies]
 dev = [
-  "ruff",
+  # "ruff",
   #"black",  ## This has been fighting with ruff
   "mypy",
   "pytest",
@@ -49,21 +49,21 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 
-[tool.ruff]
-line-length = 120
+# [tool.ruff]
+# line-length = 120
 
-[tool.ruff.lint]
-# Only care about real issues
-select = ["E", "W", "F", "I", "B", "C4", "TCH", "ARG"]
-# Ignore everything else
-ignore = [
-  "UP",      # Don't care about Python 3.12+ upgrades
-  "ERA",     # Don't care about commented code
-  "I001",    # Don't care about import order
-]
+# [tool.ruff.lint]
+# # Only care about real issues
+# select = ["E", "W", "F", "I", "B", "C4", "TCH", "ARG"]
+# # Ignore everything else
+# ignore = [
+#   "UP",      # Don't care about Python 3.12+ upgrades
+#   "ERA",     # Don't care about commented code
+#   "I001",    # Don't care about import order
+# ]
 
-[tool.ruff.format]
-preview = false
+# [tool.ruff.format]
+# preview = false
 
 # Ensure we package only qamp/ (not results/, configs/, notebooks/)
 [tool.setuptools.packages.find]
@@ -74,6 +74,7 @@ exclude = ["results*", "configs*", "notebooks*"]
 python_version = "3.11"
 warn_return_any = true
 warn_unused_configs = true
+
 
 
 
