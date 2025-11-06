@@ -4,62 +4,32 @@ import gzip
 from pathlib import Path
 from typing import Any, List, Dict
 
-def load_benchmark(pkl_path: str | Path) -> dict[int, dict[str, Any]]:
-# def load_benchmark(pkl_path: str | Path) -> Dict[int, Dict[str, Any]]:
-    """
-    Load a benchmark file created by your generation script.
-
-    Returns the raw dictionary:
-        {
-            0: {
-                "graph_adj_mat": np.ndarray,
-                "positive_subgraph_adj_mats": [np.ndarray, ...],
-                "negative_subgraph_adj_mats": [np.ndarray, ...],
-                "pos_nodes": [[int, ...], ...],        # optional
-                ...                                 # any other keys you added
-            },
-            ...
-            "__metadata__": { ... }                   # optional global metadata
-        }
-    """
+def load_benchmark(pkl_path: str | Path) -> dict[int | str, dict[str, Any]]:
     pkl_path = Path(pkl_path)
     if not pkl_path.exists():
         raise FileNotFoundError(pkl_path)
 
     opener = gzip.open if pkl_path.suffix == ".gz" else open
     with opener(pkl_path, "rb") as f:
-        data: dict[int, dict[str, Any]] = pickle.load(f)   # <-- explicit annotation
+        data: dict[int | str, dict[str, Any]] = pickle.load(f)
     return data
 
 
 
 def iter_instances(
-    data: Dict[int, Dict[str, Any]],
+    data: dict[int | str, dict[str, Any]],
     seed: int | None = 42,
-) -> List[Dict[str, Any]]:
-    """
-    Flatten the raw benchmark dict into a list of instances.
-
-    Each instance contains:
-        - "target_adj":          np.ndarray   (host graph)
-        - "pattern_adj":         np.ndarray   (subgraph)
-        - "gt_mapping":          dict | None  {pattern_idx → target_idx}
-        - "label":               1 | 0
-        - "meta":                dict          (source, graph_id, type, etc.)
-    """
+) -> list[dict[str, Any]]:
     import random
     rng = random.Random(seed)
     instances = []
 
-
-
-    
+    # This now works because key can be str
     global_meta: dict[str, Any] = data.get("__metadata__", {})
 
     for graph_id, entry in data.items():
         if graph_id == "__metadata__":
             continue
-
         target_adj = entry["graph_adj_mat"]
 
         # --- positives -------------------------------------------------
@@ -102,6 +72,7 @@ def iter_instances(
 
     rng.shuffle(instances)
     return instances
+
 
 
 
