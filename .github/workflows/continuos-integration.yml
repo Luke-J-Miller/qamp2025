@@ -26,15 +26,18 @@ jobs:
       - name: Lint
         run: ruff check .
 
-      - name: Format check
-        run: black .
+      
 
 
       - name: Type check
         run: mypy qamp
 
+      - name: Format check
+        run: black --check .
+
       - name: Import package
         run: python -c "import qamp; print(getattr(__import__('qamp'), '__version__', 'ok'))"
+
 
 
 
