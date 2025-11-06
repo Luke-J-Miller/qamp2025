@@ -33,7 +33,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
   "ruff",
-  "black",
+  #"black",  ## This has been fighting with ruff
   "mypy",
   "pytest",
   "types-PyYAML",
@@ -47,6 +47,14 @@ dev = [
 [build-system]
 requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
+
+
+[tool.ruff]
+select = ["E", "W", "F", "I", "UP", "B", "C4", "TCH", "ARG", "ERA"]
+ignore = []
+
+[tool.ruff.format]
+preview = true
 
 # Ensure we package only qamp/ (not results/, configs/, notebooks/)
 [tool.setuptools.packages.find]
@@ -63,6 +71,7 @@ line-length = 100
 
 [tool.ruff]
 line-length = 100
+
 
 
 
