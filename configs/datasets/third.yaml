@@ -1,10 +1,10 @@
 name: snap_small
 domain: social
-path: data/third/snap_small
-directed: false
-weighted: false
+path: data/snap
+directed: true
+weighted: true
 attributes:
-  node: [node_id]
-  edge: []
+  node: [username]
+  edge: [weight]
 split_policy: node_random
 seed: 42
