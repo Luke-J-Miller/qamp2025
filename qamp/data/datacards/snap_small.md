@@ -16,7 +16,7 @@
 - Directed: true
 - Weighted: true
 
-##Split policy
+## Split policy
 - graph-level random split
   - train: 40 graphs
   - val: 5 graphs

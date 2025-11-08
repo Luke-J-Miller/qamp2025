@@ -4,9 +4,9 @@
 
 This folder contains the following comma separated text files 
 
-n: total number of nodes = 475
-m: total number of edges = 13,289
-N: number of graphs = 50
+- n: total number of nodes = 475
+- m: total number of edges = 13,289
+- N: number of graphs = 50
 
 	(1) 	SNAP_A.txt (m lines) 
 	sparse (block diagonal) adjacency matrix for all graphs,
@@ -26,11 +26,11 @@ N: number of graphs = 50
 
 There are OPTIONAL files if the respective information is available:
 
-	(5) 	SNAP_edge_labels.txt (m lines; same size as DS_A_sparse.txt)
-	labels for the edges in DD_A_sparse.txt 
+	(5) 	SNAP_edge_labels.txt (m lines; same size as SNAP_A_sparse.txt)
+	labels for the edges in SNAP_A_sparse.txt 
 
-	(6) 	SNAP_edge_attributes.txt (m lines; same size as DS_A.txt)
-	attributes for the edges in DS_A.txt 
+	(6) 	SNAP_edge_attributes.txt (m lines; same size as SNAP_A.txt)
+	attributes for the edges in SNAP_A.txt 
 
 	(7) 	SNAP_node_attributes.txt (n lines) 
 	matrix of node attributes,
