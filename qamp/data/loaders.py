@@ -51,7 +51,7 @@ def load_benchmark(pkl_path: str | Path) -> dict[int | str, dict[str, Any]]:
         "er_benchmark.pkl",
     }
     if str(pkl_path).lower() in ['mutag', 'snap', 'ba', 'er']:
-        match pkl_path.lower():
+        match str(pkl_path).lower():
             case 'mutag':
                 pkl_path = "molecular/mutag_benchmark.pkl"
             case 'snap':
@@ -73,14 +73,15 @@ def load_benchmark(pkl_path: str | Path) -> dict[int | str, dict[str, Any]]:
 
 
     bio = io.BytesIO(content)
+    data: Dict[Union[int, str], Dict[str, Any]]
     try:
         if Path(pkl_path).suffix == ".gz":
             # open as gzip file-like
             with gzip.GzipFile(fileobj=bio, mode="rb") as gf:
-                data: dict[int | str, dict[str, Any]] = pickle.load(gf)
+                data = pickle.load(gf)
         else:
             # load directly from bytes
-            data: dict[int | str, dict[str, Any]] = pickle.load(bio)
+            data = pickle.load(bio)
     except Exception as exc:
         raise RuntimeError(f"Failed to unpickle data from URL '{url}': {exc}") from exc
 
@@ -142,6 +143,7 @@ def iter_instances(
 
     rng.shuffle(instances)
     return instances
+
 
 
 
