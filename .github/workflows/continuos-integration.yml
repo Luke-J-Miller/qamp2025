@@ -19,13 +19,13 @@ jobs:
       - name: Install dev CLI tools
         run: |
           uv pip install ruff mypy types-PyYAML
-          uv run mypy --install-types
       - name: Type check
         run: uv run mypy qamp
       # - name: Lint
       #   run: uv run ruff check .
       - name: Import package
         run: python -c "import qamp; print(getattr(__import__('qamp'), '__version__', 'ok'))"
+
 
 
 
