@@ -16,15 +16,25 @@ jobs:
           python -m pip install --upgrade pip
           pip install uv
           uv sync
+
       - name: Install dev CLI tools
         run: |
-          uv pip install ruff mypy types-PyYAML
+          uv pip install ruff mypy types-PyYAML types-requests
       - name: Type check
-        run: uv run mypy qamp
+        run: |
+          # ensure mypy can auto-install any remaining stub packages if needed
+          uv run mypy --install-types --non-interactive
+          uv run mypy qamp
+      # - name: Install dev CLI tools
+      #   run: |
+      #     uv pip install ruff mypy types-PyYAML
+      # - name: Type check
+      #   run: uv run mypy qamp
       # - name: Lint
       #   run: uv run ruff check .
       - name: Import package
         run: python -c "import qamp; print(getattr(__import__('qamp'), '__version__', 'ok'))"
+
 
 
 
