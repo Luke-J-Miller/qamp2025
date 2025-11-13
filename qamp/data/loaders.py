@@ -5,6 +5,8 @@ from pathlib import Path
 from typing import Any
 import urllib.parse
 import requests
+import io
+
 
 
 
@@ -140,6 +142,7 @@ def iter_instances(
 
     rng.shuffle(instances)
     return instances
+
 
 
 
