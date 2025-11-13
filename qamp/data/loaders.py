@@ -60,8 +60,7 @@ def load_benchmark(pkl_path: str | Path) -> dict[int | str, dict[str, Any]]:
                 pkl_path = "synth/ba_benchmark.pkl"
             case 'er':
                 pkl_path = "synth/er_benchmark.pkl"
-
-    url = "https://raw.githubusercontent.com/Luke-J-Miller/qamp2025/main/qamp/data/" + str(pkl_path)
+    url = "https://github.com/Luke-J-Miller/qamp2025/raw/refs/heads/main/qamp/data/" + str(pkl_path)
 
     try:
         resp = requests.get(url, stream=True, timeout=30)
@@ -143,6 +142,7 @@ def iter_instances(
 
     rng.shuffle(instances)
     return instances
+
 
 
 
