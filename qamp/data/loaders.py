@@ -73,7 +73,7 @@ def load_benchmark(pkl_path: str | Path) -> dict[int | str, dict[str, Any]]:
 
 
     bio = io.BytesIO(content)
-    data: dict[Union[int, str], dict[str, Any]]
+    data: dict[int | str, dict[str, Any]]
     try:
         if Path(pkl_path).suffix == ".gz":
             # open as gzip file-like
@@ -143,6 +143,7 @@ def iter_instances(
 
     rng.shuffle(instances)
     return instances
+
 
 
 
