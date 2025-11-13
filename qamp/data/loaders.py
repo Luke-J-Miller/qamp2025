@@ -2,7 +2,11 @@
 import pickle
 import gzip
 from pathlib import Path
-from typing import Any#, List, Dict
+from typing import Any
+import urllib.parse
+import requests
+
+
 
 
 
@@ -44,26 +48,39 @@ def load_benchmark(pkl_path: str | Path) -> dict[int | str, dict[str, Any]]:
         "ba_benchmark.pkl",
         "er_benchmark.pkl",
     }
-    if pkl_path.lower() in ['mutag', 'snap', 'ba', 'er']:
+    if str(pkl_path).lower() in ['mutag', 'snap', 'ba', 'er']:
         match pkl_path.lower():
             case 'mutag':
-                pkl_path = "mutag_benchmark.pkl"
+                pkl_path = "molecular/mutag_benchmark.pkl"
             case 'snap':
-                pkl_path = "snap_benchmark.pkl"
+                pkl_path = "snap/snap_benchmark.pkl"
             case 'ba':
-                pkl_path = "ba_benchmark.pkl"
+                pkl_path = "synth/ba_benchmark.pkl"
             case 'er':
-                pkl_path = "er_benchmark.pkl"
+                pkl_path = "synth/er_benchmark.pkl"
+
+    url = "https://raw.githubusercontent.com/Luke-J-Miller/qamp2025/main/qamp/data/" + str(pkl_path)
+
+    try:
+        resp = requests.get(url, stream=True, timeout=30)
+        resp.raise_for_status()
+        # read a small prefix to check gzip magic if present, then read remainder
+        content = resp.content  # servers typically small here; benchmark pickles are usually not huge
+    except Exception as exc:
+        raise RuntimeError(f"Failed to download benchmark from URL '{url}': {exc}") from exc
 
 
-    if not pkl_path.exists():
-        
-        raise FileNotFoundError(f"Benchmark file not found: {pkl_path}")
-
-
-    opener = gzip.open if pkl_path.suffix == ".gz" else open
-    with opener(pkl_path, "rb") as f:
-        data: dict[int | str, dict[str, Any]] = pickle.load(f)
+    bio = io.BytesIO(content)
+    try:
+        if Path(pkl_path).suffix == ".gz":
+            # open as gzip file-like
+            with gzip.GzipFile(fileobj=bio, mode="rb") as gf:
+                data: dict[int | str, dict[str, Any]] = pickle.load(gf)
+        else:
+            # load directly from bytes
+            data: dict[int | str, dict[str, Any]] = pickle.load(bio)
+    except Exception as exc:
+        raise RuntimeError(f"Failed to unpickle data from URL '{url}': {exc}") from exc
 
     return data
 
@@ -123,6 +140,7 @@ def iter_instances(
 
     rng.shuffle(instances)
     return instances
+
 
 
 
