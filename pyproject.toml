@@ -14,6 +14,7 @@ dependencies = [
   "numpy",
   "scipy",
   "networkx",
+  "requests",
   "pandas",
   "pyyaml",
   "jsonschema",
@@ -39,6 +40,7 @@ dev = [
   "types-PyYAML",
   "types-networkx",   # networkx
   "types-tqdm",       # tqdm
+  "types-requests",
   "datasets",         # includes its own stubs
   "numpy",            # needed for numpy stubs
   "maturin"
@@ -74,6 +76,7 @@ exclude = ["results*", "configs*", "notebooks*"]
 python_version = "3.11"
 warn_return_any = true
 warn_unused_configs = true
+
 
 
 
