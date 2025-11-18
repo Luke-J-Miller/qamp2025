@@ -1,5 +1,6 @@
 name: Continuous Integration
 on:
+  workflow_dispatch:
   # push:  #temporarily disable due to github outage
   # pull_request:
 jobs:
@@ -34,6 +35,7 @@ jobs:
       #   run: uv run ruff check .
       - name: Import package
         run: python -c "import qamp; print(getattr(__import__('qamp'), '__version__', 'ok'))"
+
 
 
 
