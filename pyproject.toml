@@ -78,25 +78,8 @@ python_version = "3.11"
 warn_return_any = true
 warn_unused_configs = true
 
-[tool.mypy."torch_geometric.*"]
+[tool.mypy.torch_geometric.nn]
 ignore_missing_imports = true
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+[tool.mypy.torch_geometric.data]
+ignore_missing_imports = true
