@@ -46,13 +46,13 @@ def load_benchmark(pkl_path: str | Path) -> dict[int | str, dict[str, Any]]:
     if str(pkl_path).lower() in ['mutag', 'snap', 'ba', 'er']:
         match str(pkl_path).lower():
             case 'mutag':
-                url = "https://github.com/Luke-J-Miller/qamp2025/raw/refs/heads/week3/qamp/data/molecular/mutag_benchmark.pkl"
+                url = "https://github.com/Luke-J-Miller/qamp2025/raw/refs/heads/week3/qamp/data/molecular/mutag_graphs.pkl"
             case 'snap':
                 url = "https://github.com/Luke-J-Miller/qamp2025/raw/refs/heads/week3/qamp/data/snap/snap_graphs.pkl"
             case 'ba':
                 url = "https://github.com/Luke-J-Miller/qamp2025/raw/refs/heads/week3/qamp/data/synth/ba/ba_graphs.pkl"
             case 'er':
-                url = "synth/er_benchmark.pkl"
+                url = "https://github.com/Luke-J-Miller/qamp2025/raw/refs/heads/week3/qamp/data/synth/er/er_graphs.pkl"
             case _:
                 raise ValueError("Supported datasets are ['mutag', 'snap', 'ba', 'er']. Please reattempt with one of these options")
 
@@ -131,6 +131,7 @@ def iter_instances(
 
     rng.shuffle(instances)
     return instances
+
 
 
 
