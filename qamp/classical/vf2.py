@@ -35,5 +35,7 @@ def run_vf2(graph: Any, subgraph: Any) -> bool:
 
     isomorphism_checker = nx.isomorphism.GraphMatcher(G, H)
     # GraphMatcher.subgraph_is_isomorphic() returns a bool
-    return isomorphism_checker.subgraph_is_isomorphic()
+    is_subgraph: bool = isomorphism_checker.subgraph_is_isomorphic()
+    return is_subgraph
+
 
