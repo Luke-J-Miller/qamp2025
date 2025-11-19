@@ -230,16 +230,14 @@ class Ullman:
 def popcount(x: int) -> int:
     return x.bit_count()
 
-def bit_index(bitmask: int) -> Optional[int]:
+def bit_index(bitmask: int) -> int:
     """Return index of single set bit in bitmask (0-based). If bitmask has multiple bits, returns index of least significant set bit.
        If zero, returns None."""
-    if bitmask == 0:
-        return None
     return (bitmask & -bitmask).bit_length() - 1
 
 # ---------- example usage and simple tests ----------
 
-def run_ullmann(graph: Dict[str, Any], subgraph: Dict[str, Any]) -> bool:
+def run_ullmann(graph: NDArray[Any], subgraph: NDArray[Any]) -> bool:
     G_masks = adjacency_matrix_to_bitmasks(graph)
     P_masks = adjacency_matrix_to_bitmasks(subgraph)
 
@@ -249,6 +247,7 @@ def run_ullmann(graph: Dict[str, Any], subgraph: Dict[str, Any]) -> bool:
         return True
     else:
         return False
+
 
 
 
