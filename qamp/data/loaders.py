@@ -74,30 +74,10 @@ def load_benchmark(pkl_path: str | Path) -> dict[int | str, dict[str, Any]]:
     bio = io.BytesIO(content)
     data: dict[int | str, dict[str, Any]]
     try:
-        # Check gzip magic header (first two bytes)
-        is_gzip = content[:2] == b"\x1f\x8b"
-        if is_gzip:
-            with gzip.GzipFile(fileobj=bio, mode="rb") as gf:
-                data = pickle.load(gf)
-        else:
-            data = pickle.load(bio)
+        data = pickle.load(bio)
     except Exception as exc:
         raise RuntimeError(f"Failed to unpickle data from URL '{url}': {exc}") from exc
 
-    
-    
-    
-    try:
-        if Path(pkl_path).suffix == ".gz":
-            # open as gzip file-like
-            with gzip.GzipFile(fileobj=bio, mode="rb") as gf:
-                data = pickle.load(gf)
-        else:
-            # load directly from bytes
-            
-            data = pickle.load(bio)
-    except Exception as exc:
-        raise RuntimeError(f"Failed to unpickle data from URL '{url}': {exc}") from exc
 
     return data
 
@@ -157,6 +137,7 @@ def iter_instances(
 
     rng.shuffle(instances)
     return instances
+
 
 
 
