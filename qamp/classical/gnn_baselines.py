@@ -46,7 +46,6 @@ def adj_mat_to_edge_list(adj_mat: NDArray) -> torch.Tensor:
     edge_index = torch.tensor([rows, cols], dtype=torch.long)
     return edge_index
 
-    return torch.tensor(graph_edge_index, dtype=torch.long)
 def run_gnn_baseline(graph: NDArray, subgraph: NDArray) -> bool:
     X_graph = torch.ones((graph.shape[0], 1))
     X_subgraph = torch.ones((subgraph.shape[0], 1))
@@ -54,6 +53,7 @@ def run_gnn_baseline(graph: NDArray, subgraph: NDArray) -> bool:
     subgraph_edge_index = adj_mat_to_edge_list(subgraph)
     model = GraphPairBaseline()
     prob = model(X_graph, graph_edge_index, X_subgraph, subgraph_edge_index)
+    is_isomorphic_pred = bool(prob.item() > 0.5)
 
-    return (prob.item() > 0.5)
+    return is_isomorphic_pred
 
