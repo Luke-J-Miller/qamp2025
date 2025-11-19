@@ -23,7 +23,7 @@ class Ullman:
     def __init__(self,
                  G_neigh_masks: List[int],  # neighbors bitmask for G vertices
                  P_neigh_masks: List[int],  # neighbors bitmask for P vertices
-                 induced: bool = False):
+                 induced: bool = True):
         """
         G_neigh_masks: list of int bitmasks: neighbors of each vertex in G
         P_neigh_masks: list of int bitmasks: neighbors of each vertex in P
@@ -41,13 +41,14 @@ class Ullman:
 
         # prepare initial M0 (list of bitmasks, one per P-vertex)
         # M0[i] has bit j set iff deg(P_i) <= deg(G_j)
-        self.M0 = [0] * self.nP
-        for i in range(self.nP):
-            mask = 0
-            for j in range(self.nG):
-                if self.degP[i] <= self.degG[j]:
-                    mask |= (1 << j)
-            self.M0[i] = mask
+        self.M0 = [(1 << self.nG) - 1 for _ in range(self.nP)]
+        # self.M0 = [0] * self.nP
+        # for i in range(self.nP):
+        #     mask = 0
+        #     for j in range(self.nG):
+        #         if self.degP[i] <= self.degG[j]:
+        #             mask |= (1 << j)
+        #     self.M0[i] = mask
 
         # order P vertices by descending degree to improve pruning early
         # `order` maps ordered index -> original P vertex index
@@ -243,12 +244,13 @@ def run_ullmann(graph: NDArray[Any], subgraph: NDArray[Any]) -> bool:
     G_masks = adjacency_matrix_to_bitmasks(graph)
     P_masks = adjacency_matrix_to_bitmasks(subgraph)
 
-    ull = Ullman(G_masks, P_masks, induced=False)
+    ull = Ullman(G_masks, P_masks, induced=True)
     sols = ull.search(find_one=True)
     if sols:
         return True
     else:
         return False
+
 
 
 
