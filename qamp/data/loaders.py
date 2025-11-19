@@ -42,25 +42,19 @@ def load_benchmark(pkl_path: str | Path) -> dict[int | str, dict[str, Any]]:
 
     Notes
     -----
-    Automatically uses gzip if the file ends with `.gz`.
     """
-    _ALLOWED_BENCHMARKS = {
-        "mutag_benchmark.pkl",
-        "snap_benchmark.pkl",
-        "ba_benchmark.pkl",
-        "er_benchmark.pkl",
-    }
     if str(pkl_path).lower() in ['mutag', 'snap', 'ba', 'er']:
         match str(pkl_path).lower():
             case 'mutag':
-                pkl_path = "molecular/mutag_benchmark.pkl"
+                url = "https://github.com/Luke-J-Miller/qamp2025/raw/refs/heads/week3/qamp/data/molecular/mutag_benchmark.pkl"
             case 'snap':
-                pkl_path = "snap/snap_benchmark.pkl"
+                url = "https://github.com/Luke-J-Miller/qamp2025/raw/refs/heads/week3/qamp/data/snap/snap_graphs.pkl"
             case 'ba':
-                pkl_path = "synth/ba_benchmark.pkl"
+                url = "https://github.com/Luke-J-Miller/qamp2025/raw/refs/heads/week3/qamp/data/synth/ba/ba_graphs.pkl"
             case 'er':
-                pkl_path = "synth/er_benchmark.pkl"
-    url = "https://github.com/Luke-J-Miller/qamp2025/raw/refs/heads/main/qamp/data/" + str(pkl_path)
+                url = "synth/er_benchmark.pkl"
+            case _:
+                raise ValueError("Supported datasets are ['mutag', 'snap', 'ba', 'er']. Please reattempt with one of these options")
 
     try:
         resp = requests.get(url, stream=True, timeout=30)
@@ -137,6 +131,7 @@ def iter_instances(
 
     rng.shuffle(instances)
     return instances
+
 
 
 
