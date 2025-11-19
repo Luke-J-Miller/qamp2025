@@ -3,6 +3,8 @@ on:
   # workflow_dispatch: #unccomment if you want to skip
   push:  #comment if you want to skip
   pull_request: # comment if you want to skip
+env:
+  SKIP_DEPS: "true"
 jobs:
   checks:
     runs-on: ubuntu-latest
@@ -18,9 +20,14 @@ jobs:
           pip install uv
       
       - name: Sync deps with uv
-        if: false   # <-- temporarily skip
+        if: ${{ env.SKIP_DEPS != 'true' }}   # <-- temporarily skip
         run: |
           uv sync
+      - name: Create lightweight uv venv
+        if: ${{ env.SKIP_DEPS == 'true' }}  
+        run: |
+          # creates the virtualenv that uv will use
+          uv venv
 
         
 
@@ -41,6 +48,7 @@ jobs:
       #   run: uv run ruff check .
       - name: Import package
         run: python -c "import qamp; print(getattr(__import__('qamp'), '__version__', 'ok'))"
+
 
 
 
