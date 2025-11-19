@@ -1,10 +1,12 @@
 from typing import List, Tuple, Optional, Dict, Any
 import random
 import numpy as np
+from numpy.typing import NDArray
+
 
 # ---------- helpers to convert adjacency-lists/matrices into bitmasks ----------
 
-def adjacency_matrix_to_bitmasks(mat: np.array) -> List[int]:
+def adjacency_matrix_to_bitmasks(mat: NDArray[Any]) -> List[int]:
     n = len(mat)
     masks = [0] * n
     for i in range(n):
@@ -75,7 +77,7 @@ class Ullman:
         Otherwise returns list of all mappings found (may be exponential).
         Each mapping is returned as a list `mapP2G` of length nP where mapP2G[i] is the G vertex assigned to P vertex i (original P order).
         """
-        solutions = []
+        solutions: List[List[int]] = []
 
         # Working M is list of bitmasks, one per ordered P-row
         M = list(self.M0_ord)
@@ -247,6 +249,7 @@ def run_ullmann(graph: Dict[str, Any], subgraph: Dict[str, Any]) -> bool:
         return True
     else:
         return False
+
 
 
 
