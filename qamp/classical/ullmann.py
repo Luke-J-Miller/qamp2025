@@ -321,5 +321,7 @@ def random_test():
     print("Random test G size", nG, "P size", nP, "found", len(sols), "mappings")
 
 def run_ullmann(dataset: Dict[str, Any], config: Dict[str, Any]) -> Dict[str, Any]:
+    pass
+
 
 
