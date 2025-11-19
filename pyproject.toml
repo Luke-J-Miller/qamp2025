@@ -6,6 +6,9 @@ readme = "README.md"
 requires-python = ">=3.11"
 authors = [{ name = "Your Name" }]
 
+
+[mypy.torch_geometric.*]
+ignore_missing_imports = true
 # Default deps tailored for Google Colab.
 # Pins match Colab's preinstalled stack to avoid conflicts.
 dependencies = [
@@ -76,6 +79,7 @@ exclude = ["results*", "configs*", "notebooks*"]
 python_version = "3.11"
 warn_return_any = true
 warn_unused_configs = true
+
 
 
 
