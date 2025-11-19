@@ -3,9 +3,6 @@ import random
 import numpy as np
 from numpy.typing import NDArray
 
-
-# ---------- helpers to convert adjacency-lists/matrices into bitmasks ----------
-
 def adjacency_matrix_to_bitmasks(mat: NDArray[Any]) -> List[int]:
     n = len(mat)
     masks = [0] * n
@@ -17,13 +14,8 @@ def adjacency_matrix_to_bitmasks(mat: NDArray[Any]) -> List[int]:
         masks[i] = m
     return masks
 
-# ---------- Ullman algorithm implementation ----------
-
 class Ullman:
-    def __init__(self,
-                 G_neigh_masks: List[int],  # neighbors bitmask for G vertices
-                 P_neigh_masks: List[int],  # neighbors bitmask for P vertices
-                 induced: bool = True):
+    def __init__(self, G_neigh_masks: List[int], P_neigh_masks: List[int],  induced: bool = True):
         """
         G_neigh_masks: list of int bitmasks: neighbors of each vertex in G
         P_neigh_masks: list of int bitmasks: neighbors of each vertex in P
@@ -40,15 +32,7 @@ class Ullman:
         self.degP = [popcount(m) for m in self.P]
 
         # prepare initial M0 (list of bitmasks, one per P-vertex)
-        # M0[i] has bit j set iff deg(P_i) <= deg(G_j)
         self.M0 = [(1 << self.nG) - 1 for _ in range(self.nP)]
-        # self.M0 = [0] * self.nP
-        # for i in range(self.nP):
-        #     mask = 0
-        #     for j in range(self.nG):
-        #         if self.degP[i] <= self.degG[j]:
-        #             mask |= (1 << j)
-        #     self.M0[i] = mask
 
         # order P vertices by descending degree to improve pruning early
         # `order` maps ordered index -> original P vertex index
@@ -83,9 +67,9 @@ class Ullman:
         # Working M is list of bitmasks, one per ordered P-row
         M = list(self.M0_ord)
 
-        # prune initial matrix
-        if not self._prune(M):
-            return solutions  # no possible mappings
+        # # prune initial matrix
+        # if not self._prune(M):
+        #     return solutions  # no possible mappings
 
         # used columns bitmask
         used_cols = 0
@@ -128,7 +112,8 @@ class Ullman:
                 used_next = used_cols_local | j
 
                 # prune
-                ok = self._prune(M_next, used_next)
+                # ok = self._prune(M_next, used_next)
+                ok = True
                 if ok:
                     recurse(cur_row + 1, M_next, used_next)
                     # maybe early stop
@@ -138,63 +123,63 @@ class Ullman:
         recurse(0, M, used_cols)
         return solutions
 
-    def _prune(self, M: List[int], used_cols_mask: int = 0) -> bool:
-        """
-        Iteratively remove impossible placements:
-        For each (i,j) where M[i] has bit j:
-            for every neighbor x of P-vertex i, there must exist some neighbor y of G-vertex j such that M[x] has bit y.
-        If a row becomes zero => return False.
-        Optionally used_cols_mask can be provided to force columns already used (so even if other rows have that bit they'd be impossible),
-        but we don't clear those bits explicitly here; we treat used columns as unavailable by considering them absent.
-        """
-        changed = True
-        n = self.nP
-        while changed:
-            changed = False
-            for i in range(n):
-                row_mask = M[i]
-                # remove used columns from consideration
-                row_mask &= ~used_cols_mask
-                if row_mask != M[i]:
-                    M[i] = row_mask
-                    changed = True
-                if row_mask == 0:
-                    return False  # no possible mapping for row i
+    # def _prune(self, M: List[int], used_cols_mask: int = 0) -> bool:
+    #     """
+    #     Iteratively remove impossible placements:
+    #     For each (i,j) where M[i] has bit j:
+    #         for every neighbor x of P-vertex i, there must exist some neighbor y of G-vertex j such that M[x] has bit y.
+    #     If a row becomes zero => return False.
+    #     Optionally used_cols_mask can be provided to force columns already used (so even if other rows have that bit they'd be impossible),
+    #     but we don't clear those bits explicitly here; we treat used columns as unavailable by considering them absent.
+    #     """
+    #     changed = True
+    #     n = self.nP
+    #     while changed:
+    #         changed = False
+    #         for i in range(n):
+    #             row_mask = M[i]
+    #             # remove used columns from consideration
+    #             row_mask &= ~used_cols_mask
+    #             if row_mask != M[i]:
+    #                 M[i] = row_mask
+    #                 changed = True
+    #             if row_mask == 0:
+    #                 return False  # no possible mapping for row i
 
-                # iterate through candidate columns (bits)
-                # We'll build a new mask of columns that are still valid for i
-                valid_mask = 0
-                candidate_mask = row_mask
-                while candidate_mask:
-                    bit = candidate_mask & -candidate_mask
-                    candidate_mask -= bit
-                    g_j = bit_index(bit)
-                    # neighbors of the P-vertex i (in ordered indices):
-                    neighP_mask = self.P_ord[i]
-                    # we must check each neighbor x of P-i has at least one candidate y among neighbors of g_j (in G)
-                    # BUT our M uses ordered P rows, so we need to check M[x_pos] & neighbors_of_g_j != 0
-                    # The bits in M[x_pos] correspond to G vertices; neighbors_of_g_j is bitmask in G domain.
-                    ok_for_all_neighbors = True
-                    # iterate neighbor positions of i in P (these are bits in neighP_mask)
-                    nb_mask = neighP_mask
-                    while nb_mask:
-                        nb_bit = nb_mask & -nb_mask
-                        nb_mask -= nb_bit
-                        p_neighbor_idx = bit_index(nb_bit)  # original index in P
-                        # convert to ordered position
-                        pos_in_order = self.inv_order[p_neighbor_idx]
-                        # check if there exists y neighbor of g_j such that M[pos_in_order] has that bit
-                        if (M[pos_in_order] & self.G_neigh_masks[g_j]) == 0:
-                            ok_for_all_neighbors = False
-                            break
-                    if ok_for_all_neighbors:
-                        valid_mask |= bit
-                if valid_mask != M[i]:
-                    M[i] = valid_mask
-                    changed = True
-                    if valid_mask == 0:
-                        return False
-        return True
+    #             # iterate through candidate columns (bits)
+    #             # We'll build a new mask of columns that are still valid for i
+    #             valid_mask = 0
+    #             candidate_mask = row_mask
+    #             while candidate_mask:
+    #                 bit = candidate_mask & -candidate_mask
+    #                 candidate_mask -= bit
+    #                 g_j = bit_index(bit)
+    #                 # neighbors of the P-vertex i (in ordered indices):
+    #                 neighP_mask = self.P_ord[i]
+    #                 # we must check each neighbor x of P-i has at least one candidate y among neighbors of g_j (in G)
+    #                 # BUT our M uses ordered P rows, so we need to check M[x_pos] & neighbors_of_g_j != 0
+    #                 # The bits in M[x_pos] correspond to G vertices; neighbors_of_g_j is bitmask in G domain.
+    #                 ok_for_all_neighbors = True
+    #                 # iterate neighbor positions of i in P (these are bits in neighP_mask)
+    #                 nb_mask = neighP_mask
+    #                 while nb_mask:
+    #                     nb_bit = nb_mask & -nb_mask
+    #                     nb_mask -= nb_bit
+    #                     p_neighbor_idx = bit_index(nb_bit)  # original index in P
+    #                     # convert to ordered position
+    #                     pos_in_order = self.inv_order[p_neighbor_idx]
+    #                     # check if there exists y neighbor of g_j such that M[pos_in_order] has that bit
+    #                     if (M[pos_in_order] & self.G_neigh_masks[g_j]) == 0:
+    #                         ok_for_all_neighbors = False
+    #                         break
+    #                 if ok_for_all_neighbors:
+    #                     valid_mask |= bit
+    #             if valid_mask != M[i]:
+    #                 M[i] = valid_mask
+    #                 changed = True
+    #                 if valid_mask == 0:
+    #                     return False
+    #     return True
 
     def _verify_mapping(self, mapping_orig: List[int]) -> bool:
         """
@@ -250,18 +235,3 @@ def run_ullmann(graph: NDArray[Any], subgraph: NDArray[Any]) -> bool:
         return True
     else:
         return False
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
