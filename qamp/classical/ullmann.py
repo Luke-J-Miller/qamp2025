@@ -101,10 +101,12 @@ class Ullman:
                 if None in mapping_ord:
                     return
                 # convert ordered mapping back to original P indices
-                mapping_orig = [None] * self.nP
+                mapping_orig = [-1] * self.nP
                 for pos_in_ord, g_vertex in enumerate(mapping_ord):
                     orig_p_idx = self.order[pos_in_ord]
                     mapping_orig[orig_p_idx] = g_vertex
+                if -1 in mapping_orig:
+                    raise RuntimeError("mapping orig error")
 
                 if self._verify_mapping(mapping_orig):
                     solutions.append(mapping_orig)
@@ -247,6 +249,7 @@ def run_ullmann(graph: NDArray[Any], subgraph: NDArray[Any]) -> bool:
         return True
     else:
         return False
+
 
 
 
