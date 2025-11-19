@@ -1,19 +1,39 @@
 from typing import Any, Dict
 import networkx as nx
 
-def run_vf2(graph: Dict[str, Any], subgraph: Dict[str, Any]) -> bool:
+# qamp/classical/vf2.py
+from typing import Any
+import numpy as np
+import networkx as nx
+
+
+def run_vf2(graph: Any, subgraph: Any) -> bool:
     """
     VF2 exact subgraph matcher.
 
     Inputs:
-      graph: dict from load_dataset(...)
-      subgraph:  dict from load_dataset(...)
+      graph, subgraph: either numpy.ndarray adjacency matrices (preferred)
+                       or NetworkX Graph-like objects (already a Graph).
 
-    Returns bool
+    Returns:
+      bool -- True if `subgraph` is isomorphic to a subgraph of `graph`.
     """
-    G = nx.from_numpy_array(graph)
-    H = nx.from_numpy_array(subgraph)
-    isomorphism_checker = nx.isomorphism.GraphMatcher(G, H)
-    return isomorphsim_checker.subgraph_is_isomorphic()
+    # If inputs are numpy arrays, convert to NetworkX graphs
+    if isinstance(graph, np.ndarray):
+        G = nx.from_numpy_array(graph)
+    elif isinstance(graph, nx.Graph):
+        G = graph
+    else:
+        raise TypeError("`graph` must be a numpy.ndarray or a networkx.Graph")
 
+    if isinstance(subgraph, np.ndarray):
+        H = nx.from_numpy_array(subgraph)
+    elif isinstance(subgraph, nx.Graph):
+        H = subgraph
+    else:
+        raise TypeError("`subgraph` must be a numpy.ndarray or a networkx.Graph")
+
+    isomorphism_checker = nx.isomorphism.GraphMatcher(G, H)
+    # GraphMatcher.subgraph_is_isomorphic() returns a bool
+    return isomorphism_checker.subgraph_is_isomorphic()
 
