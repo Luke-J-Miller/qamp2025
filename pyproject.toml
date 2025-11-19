@@ -6,9 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 authors = [{ name = "Your Name" }]
 
-
 # Default deps tailored for Google Colab.
-# Pins match Colab's preinstalled stack to avoid conflicts.
 dependencies = [
   "qiskit",
   "qiskit-aer",
@@ -22,51 +20,39 @@ dependencies = [
   "tqdm",
   "datasets",
 
-  # Colab-friendly pins (CPU): keep these as your *default* now
+  # Colab-friendly pins (CPU)
   "torch==2.8.0",
   "torchvision==0.23.0",
   "torchaudio==2.8.0",
+
+  # Include PyTorch Geometric core packages
+  "torch-scatter",
+  "torch-sparse",
+  "torch-cluster",
+  "torch-spline-conv",
+  "torch-geometric",
 
   # Satisfy IPython 7.x on Colab
   "jedi>=0.16",
 ]
 
-# Developer tools (local + CI), unchanged
+# Developer tools (local + CI)
 [project.optional-dependencies]
 dev = [
-  # "ruff",
-  #"black",  ## This has been fighting with ruff
   "mypy",
   "pytest",
   "types-PyYAML",
-  "types-networkx",   # networkx
-  "types-tqdm",       # tqdm
+  "types-networkx",
+  "types-tqdm",
   "types-requests",
-  "datasets",         # includes its own stubs
-  "numpy",            # needed for numpy stubs
+  "datasets",
+  "numpy",
   "maturin"
 ]
 
 [build-system]
 requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
-
-
-# [tool.ruff]
-# line-length = 120
-
-# [tool.ruff.lint]
-# # Only care about real issues
-# select = ["E", "W", "F", "I", "B", "C4", "TCH", "ARG"]
-# # Ignore everything else
-# ignore = [
-#   "UP",      # Don't care about Python 3.12+ upgrades
-#   "ERA",     # Don't care about commented code
-#   "I001",    # Don't care about import order
-# ]
-
-# [tool.ruff.format]
-# preview = false
 
 # Ensure we package only qamp/ (not results/, configs/, notebooks/)
 [tool.setuptools.packages.find]
@@ -77,4 +63,3 @@ exclude = ["results*", "configs*", "notebooks*"]
 python_version = "3.11"
 warn_return_any = true
 warn_unused_configs = true
-
