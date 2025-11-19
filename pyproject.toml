@@ -1,6 +1,6 @@
 [project]
 name = "qamp-graph-matching"
-version = "0.1.0"
+version = "202511190926"
 description = "Scaffold for a resource-aware quantum graph matching benchmark."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -76,6 +76,7 @@ exclude = ["results*", "configs*", "notebooks*"]
 python_version = "3.11"
 warn_return_any = true
 warn_unused_configs = true
+
 
 
 
