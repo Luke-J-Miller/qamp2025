@@ -1,4 +1,4 @@
-from typing import List, Tuple, Optional
+from typing import List, Tuple, Optional, Dict
 # import random
 # import numpy as np
 
@@ -320,8 +320,9 @@ from typing import List, Tuple, Optional
 #     sols = ull.search(find_one=False)
 #     print("Random test G size", nG, "P size", nP, "found", len(sols), "mappings")
 
-def run_ullmann(dataset: dict[str, Any], config: Dict[str, Any]) -> Dict[str, Any]:
+def run_ullmann(dataset: Dict[str, Any], config: Dict[str, Any]) -> Dict[str, Any]:
     pass
+
 
 
 
